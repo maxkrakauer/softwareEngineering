@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">list_practice</string>
+    <string name="item_name">TextView</string>
+    <string name="item_show">Button</string>
+    <string name="item_price">TextView</string>
+    <string name="store_suggestions">Store suggestions</string>
+    <string name="past_items">Past Items</string>
+    <string name="farts">farts</string>
+    <string name="shits">shits</string>
+    <string name="button">Button</string>
+    <string name="textview">TextView</string>
+</resources>
