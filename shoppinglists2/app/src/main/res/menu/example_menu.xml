@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<item android:id="@+id/item1"
+        android:icon="@drawable/piclist"
+        android:title="Item 1"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/menu_log_out"
+        android:title="Log Out"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/menu_following"
+        android:title="Users You Might Know"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/all_lists"
+        android:title="Lists"
+        app:showAsAction="never">
+
+        <menu>
+
+            <item android:id="@+id/menu_past_items"
+                android:title="My Past Items"/>
+
+            <item android:id="@+id/menu_friends_items"
+                android:title="Friends' Items"/>
+
+            <item android:id="@+id/menu_seller_items"
+                android:title="Seller's Items"/>
+
+
+        </menu>
+
+    </item>
+
+</menu>
