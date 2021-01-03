@@ -36,7 +36,7 @@ public class OthersItems extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.others_items);
+        setContentView(R.layout.my_items);
 /*
         btnUp = (Button) findViewById(R.id.btnUp);
         button = (Button) findViewById(R.id.button);
@@ -57,6 +57,8 @@ enteredValue.setText(passedArg);
         FirebaseUser user = mAuth.getCurrentUser();
         _user_id = user.getUid();
 
+        _user_id = getIntent().getExtras().getString("user_id");
+        _list_id = getIntent().getExtras().getString("list_id");
 
         System.out.println("user id is:"+ _user_id);
         System.out.println("list id is: "+_list_id);
@@ -98,9 +100,10 @@ enteredValue.setText(passedArg);
                 String amount = _edit_amount.getText().toString();
                 //Users u = new Users (name,price);
                 list_item u= new list_item(name,desc,price,amount);
+                System.out.println("list_item: "+u.toString());
                 //myRef.child("users").child(u.getName()).setValue(u);//name??
                 //myRef.child("users").child(_user_id).child("lists").child(_list_id).child(u.get_name()).setValue(u);//name??
-                myRef.child("users").child(_user_id).child("lists").child(_list_id).child(u.get_name()).setValue(u);//name??
+                myRef.child("users").child(_user_id).child("lists").child(_list_id).child("list_items").child(u.get_name()).setValue(u);//name??
                 _layout.setVisibility(View.GONE);
             }
         });
@@ -113,12 +116,14 @@ enteredValue.setText(passedArg);
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         items.clear();
-                        for (DataSnapshot dst : snapshot.getChildren()){
-                            if(dst.getKey().equals(_list_id)==false)
-                                for(DataSnapshot list: dst.getChildren()) {
+                        for (DataSnapshot dst : snapshot.getChildren()) {
+                            if (dst.getKey().equals(_list_id) == false) {
+                                dst=dst.child("list_items");
+                                for (DataSnapshot list : dst.getChildren()) {
                                     list_item u = list.getValue(list_item.class);
                                     items.add(u);
                                 }
+                            }
                         }
                         refresh_recycler();//?
                         // Toast.makeText(MainActivity.this, "555", Toast.LENGTH_SHORT).show();

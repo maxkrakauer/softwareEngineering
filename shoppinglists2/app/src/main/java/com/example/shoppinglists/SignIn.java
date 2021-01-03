@@ -128,7 +128,10 @@ public class SignIn extends AppCompatActivity{
         EditText editEmail = findViewById(R.id.email);
         EditText editPassword = findViewById(R.id.password);
                         String st = editEmail.getText().toString();
+                        System.out.println("st="+st);
                         String pass = editPassword.getText().toString();
+                        System.out.println("pass="+pass);
+                        System.out.println("_password="+_password);
                             if (st.equals("admin_lists@gmail.com")) {
                                 if (pass.equals(_password)) {
                                     startActivity(new Intent(SignIn.this, adminMenu.class));

@@ -90,7 +90,7 @@ enteredValue.setText(passedArg);
                 list_item u= new list_item(name,desc,price,amount);
                 //myRef.child("users").child(u.getName()).setValue(u);//name??
                 //myRef.child("users").child(_user_id).child("lists").child(_list_id).child(u.get_name()).setValue(u);//name??
-                myRef.child("users").child(_user_id).child("lists").child(_list_id).child(u.get_name()).setValue(u);//name??
+                myRef.child("users").child(_user_id).child("lists").child(_list_id).child("list_items").child(u.get_name()).setValue(u);//name??
                 _layout.setVisibility(View.GONE);
             }
         });

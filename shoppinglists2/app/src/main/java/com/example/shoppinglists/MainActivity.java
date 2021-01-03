@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     ListView _lv;
     LinearLayout _layout, _new_list_layout;
     EditText _edit_name, _edit_price, _edit_amount, _edit_desc, _list_name_id;
-    String _user_id,_list_id;
-    TextView _full_item_view;
+    String _user_id,_list_id,_list_name;
+    TextView _full_item_view,_list_name_text;
     ArrayList <list_item> users = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +59,17 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         _user_id = user.getUid();
 
+        _list_name="";
+
         Query query = myRef.child("users").child(_user_id);//.child("lists").child(_list_id).orderByValue();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 _list_id = snapshot.child("current_list").getValue(String.class);
                 if(!_list_id.equals("0")){
+                    _list_name = snapshot.child("lists").child(_list_id).child("list_name").getValue(String.class);
+                    _list_name_text.setVisibility(View.VISIBLE);
+                    _list_name_text.setText(_list_name);
                     DataSnapshot snap = snapshot.child("lists").child(_list_id).child("list_items");
                     users.clear();
                     for (DataSnapshot dst : snap.getChildren()) {
@@ -92,16 +97,15 @@ public class MainActivity extends AppCompatActivity {
         _create_new_item = (Button) findViewById(R.id.create_new_item);
         _show_item_list = (Button) findViewById(R.id.show_item_list);
 
-        _new_list = (Button) findViewById(R.id.new_list);
+        _new_list = (Button) findViewById(R.id.log_out_id);
 
         _submit_new_list_id = (Button) findViewById(R.id.submit_new_list_id);
-
 
         _layout = (LinearLayout) findViewById(R.id.create_item_box);
         _new_list_layout = (LinearLayout) findViewById(R.id.new_list_layout_id);
 
         _full_item_view = (TextView) findViewById(R.id.full_item_view);
-
+        _list_name_text = (TextView) findViewById(R.id.list_name_text);
 
         _lv = (ListView) findViewById(R.id.list_view);
 
@@ -137,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
                    public void onDataChange(@NonNull DataSnapshot snapshot) {
                        _list_id = snapshot.child("current_list").getValue(String.class);
                        if(!_list_id.equals("0")) {
+                           _list_name = snapshot.child("lists").child(_list_id).child("list_name").getValue(String.class);
+                           _list_name_text.setVisibility(View.VISIBLE);
+                           _list_name_text.setText(_list_name);
                            DataSnapshot snap = snapshot.child("lists").child(_list_id).child("list_items");
                            users.clear();
                            for (DataSnapshot dst : snap.getChildren()) {
